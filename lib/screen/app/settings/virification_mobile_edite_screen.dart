@@ -13,22 +13,33 @@ class VrificationMobileScreen extends StatefulWidget {
 
 class _VrificationMobileScreenState extends State<VrificationMobileScreen> with helpers {
 
-  late TextEditingController _mobileTextController;
+  late TextEditingController _forgetTextController;
+  late TextEditingController _verify1TextController;
+  late TextEditingController _verify2TextController;
+  late TextEditingController _verify3TextController;
+  late TextEditingController _verify4TextController;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _mobileTextController = TextEditingController();
 
+    _verify1TextController = TextEditingController();
+    _verify2TextController = TextEditingController();
+    _verify3TextController = TextEditingController();
+    _verify4TextController = TextEditingController();
   }
+
   @override
   void dispose() {
-    _mobileTextController.dispose();
+    _verify1TextController.dispose();
+    _verify2TextController.dispose();
+    _verify3TextController.dispose();
+    _verify4TextController.dispose();
+    // TODO: implement dispose
     super.dispose();
   }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +55,7 @@ class _VrificationMobileScreenState extends State<VrificationMobileScreen> with 
         ),
         backgroundColor: Color(0xFFFEBEBEB),
         title:  Text(
-          'verification code',
+          'verification',
           style: GoogleFonts.cairo(
               fontSize: 25.sp,
               fontWeight: FontWeight.w500,
@@ -60,6 +71,7 @@ class _VrificationMobileScreenState extends State<VrificationMobileScreen> with 
               padding: EdgeInsets.only(top: 5),
               margin: EdgeInsetsDirectional.only(bottom:10,start: 10,end: 10),
               height: 400.h,
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: Color(0xFFFA076E8),
                 borderRadius: BorderRadius.circular(10),
@@ -71,39 +83,61 @@ class _VrificationMobileScreenState extends State<VrificationMobileScreen> with 
                   )
                 ],
               ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 40.h),
+              child:Padding(
+                padding: EdgeInsetsDirectional.only(start: 10),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'Change Your Mobile',
-                      style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Colors.black
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        'Enter Your Code',
+                        style: GoogleFonts.cairo(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black
+                        ),
                       ),
                     ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
                     Text(
-                      'Enter New Mobile',
+                      'Enter the 4 digits code that you recived on'
+                          'your mobile',
                       style: GoogleFonts.cairo(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
+                          height: 0.4,
                           color: Colors.black45
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 20.h),
-                    AppTextField(
-                      hint:'Enter new mobile',
-                      prefixIcon: Icons.phone,
-                      keyboardType: TextInputType.number,
-                      controller: _mobileTextController,
+                    SizedBox(
+                      height: 140.h,
+                      width: 250.w,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          VerificationTextFeild(verify1TextController: _verify1TextController,first: true,),
+
+                          VerificationTextFeild(verify1TextController: _verify2TextController),
+                          VerificationTextFeild(verify1TextController: _verify3TextController),
+
+                          VerificationTextFeild(verify1TextController: _verify4TextController,last: true,),
+
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 50.h,),
                     ElevatedButton(
-                      onPressed: ()=>{_PerformForget()},
+                      onPressed: ()=>{_performlogin()},
                       child: Text(
-                        'Upadte Mobile',
+                        'Update Mobile',
                         style: GoogleFonts.cairo(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w400,
@@ -119,6 +153,7 @@ class _VrificationMobileScreenState extends State<VrificationMobileScreen> with 
                         ),
                       ),
                     ),
+                    SizedBox(height: 30.h,),
                   ],
                 ),
               ),
@@ -128,21 +163,114 @@ class _VrificationMobileScreenState extends State<VrificationMobileScreen> with 
       ),
     );
   }
-  void _PerformForget(){
-    if(CheckData()){
-      login();
+  void _performlogin() {
+    if (_checkVeriyData()) {
+      _login();
     }
   }
 
-  bool CheckData(){
-    if(_mobileTextController.text.isNotEmpty){
-      return true ;
+  bool _checkVeriyData() {
+    if (_verify1TextController.text.isNotEmpty &&
+        _verify2TextController.text.isNotEmpty &&
+        _verify3TextController.text.isNotEmpty &&
+        _verify4TextController.text.isNotEmpty){
+      ShowSnackBar(context, message: 'Update Mobile Successfully');
+      return true;
     }
-    ShowSnackBar(context, message: 'Enter required data !',error: true);
+    ShowSnackBar(context, message:  'Enter your veriy code');
+
     return false;
+
   }
 
-  void login(){
-    Navigator.pop(context);
+  _login() {
+    Navigator.pushNamed(context, '/virification_mobile_screen');
+
+  }
+}
+
+class VerificationTextFeild extends StatelessWidget {
+  VerificationTextFeild({
+    this.first = false,
+    this.last = false,
+    Key? key,
+    required TextEditingController verify1TextController,
+  }) : _verify1TextController = verify1TextController, super(key: key);
+
+  final TextEditingController _verify1TextController;
+  bool first;
+  bool last ;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 50.w,
+      child: TextField(
+        onChanged: (value) {
+          if(value.isNotEmpty&&!last) {
+            FocusScope.of(context).nextFocus();
+          }else if(value.isEmpty&&!first){
+            FocusScope.of(context).previousFocus();
+          }
+        },
+        textAlign: TextAlign.center,
+        controller: _verify1TextController,
+        maxLength: 1,
+        keyboardType: const TextInputType
+            .numberWithOptions(
+            decimal: false, signed: false),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color(0XFFF9F3EE),
+          helperMaxLines: 1,
+          hintStyle: GoogleFonts.nunitoSans(
+              fontSize: 16.sp),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+        ),
+
+      ),
+
+    );
   }
 }

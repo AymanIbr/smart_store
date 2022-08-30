@@ -156,6 +156,28 @@ class _HomeScreenState extends State<HomeScreen> {
                },
              ),
              ListTile(
+               leading: Icon(Icons.mode_edit),
+               title: Text('About',style: GoogleFonts.cairo(),),
+               trailing: Icon(Icons.arrow_forward_ios),
+               onTap: (){
+                 Navigator.pop(context);
+                 Future.delayed(Duration(microseconds: 500 ), (){
+                   Navigator.pushNamed(context , '/order_screen');
+                 });
+               },
+             ),
+             ListTile(
+               leading: Icon(Icons.contact_mail_rounded),
+               title: Text('Contact Us',style: GoogleFonts.cairo(),),
+               trailing: Icon(Icons.arrow_forward_ios),
+               onTap: (){
+                 Navigator.pop(context);
+                 Future.delayed(Duration(microseconds: 500 ), (){
+                   Navigator.pushNamed(context , '/order_screen');
+                 });
+               },
+             ),
+             ListTile(
                leading: Icon(Icons.question_answer),
                title: Text('Faqs',style: GoogleFonts.cairo(),),
                subtitle: Text('Frequent Question',style: GoogleFonts.cairo(),),
@@ -178,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                  });
                },
              ),
-             SizedBox(height: 360.h,),
+             SizedBox(height: 200.h,),
              ListTile(
                leading: Icon(Icons.logout),
                title: Text('Logout',style: GoogleFonts.cairo(),),
@@ -228,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                  sigmaY: 2,sigmaX: 2
                                ),
                              child:Image.asset(
-                               'images/section.png',
+                               'images/category1.png',
                                width: double.infinity,
                                fit: BoxFit.cover,
                              ),

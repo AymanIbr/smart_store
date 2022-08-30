@@ -66,98 +66,109 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> with helpers ,S
             height: 250.h,
             fit: BoxFit.cover,
           ),
+          SizedBox(
+            height: 60.h,
+            width: 200.w,
+            child: Text(
+              'Men\s Daniel Wellington St Mawes Watch ',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.cairo(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color:Colors.black87
+              ),
+            ),
+          ),
           SizedBox(height: 10.h,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w,),
-              child:  Column(
+            padding: EdgeInsets.symmetric(horizontal: 65.w,),
+              child:  Row(
                   children: [
-                    SizedBox(
-                      height: 60.h,
-                      width: 200.w,
-                      child: Text(
-                        'Men\s Daniel Wellington St Mawes Watch ',
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.cairo(
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
-                            color:Colors.black87
-                        ),
-                      ),
-                    ),
                     SizedBox(height: 10.h,),
-                    Row(
-                      children: [
-                        Text(
-                          'Number : ',
-                          style: GoogleFonts.cairo(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                   Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Row(
+                         children: [
+                           Text(
+                             'Number : ',
+                             style: GoogleFonts.cairo(
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
 
-                        Text(
-                          'order #1',
-                          style: GoogleFonts.cairo(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFA076E8),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Quantity : ',
-                          style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.bold,
+                           Text(
+                             'order #1',
+                             style: GoogleFonts.cairo(
+                               fontWeight: FontWeight.bold,
+                               color: Color(0xFFFA076E8),
+                             ),
+                           ),
+                         ],
+                       ),
+                       Row(
+                         children: [
+                           Text(
+                             'Quantity : ',
+                             style: GoogleFonts.nunitoSans(
+                               fontWeight: FontWeight.bold,
 
-                          ),
-                        ),
+                             ),
+                           ),
 
-                        Text(
-                          '2',
-                          style: GoogleFonts.cairo(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFA076E8),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Total : ',
-                          style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                           Text(
+                             '2',
+                             style: GoogleFonts.cairo(
+                               fontWeight: FontWeight.bold,
+                               color: Color(0xFFFA076E8),
+                             ),
+                           ),
+                         ],
+                       ),
+                     ],
+                   ),
+                   SizedBox(width: 40.w,),
+                   Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Row(
+                         children: [
+                           Text(
+                             'Total : ',
+                             style: GoogleFonts.nunitoSans(
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
 
-                        Text(
-                          '\$120',
-                          style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFA076E8),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Date : ',
-                          style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                           Text(
+                             '\$120',
+                             style: GoogleFonts.nunitoSans(
+                               fontWeight: FontWeight.bold,
+                               color: Color(0xFFFA076E8),
+                             ),
+                           ),
+                         ],
+                       ),
+                       Row(
+                         children: [
+                           Text(
+                             'Date : ',
+                             style: GoogleFonts.nunitoSans(
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
 
-                        Text(
-                          '14/6/2021',
-                          style: GoogleFonts.nunitoSans(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFFA076E8),
-                          ),
-                        ),
-                      ],
-                    ),
+                           Text(
+                             '14/6/2021',
+                             style: GoogleFonts.nunitoSans(
+                               fontWeight: FontWeight.bold,
+                               color: Color(0xFFFA076E8),
+                             ),
+                           ),
+                         ],
+                       ),
+                     ],
+                   ),
                   ],
                 ),
           ),

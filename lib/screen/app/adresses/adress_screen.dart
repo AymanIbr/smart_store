@@ -47,285 +47,317 @@ class _AddressScreenState extends State<AddressScreen> with helpers{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
-          'Adreese',
-          style: GoogleFonts.cairo(
-              fontSize: 25.sp,
-              fontWeight: FontWeight.w500,
-              color: Colors.white
-          ),
-        ),
+        automaticallyImplyLeading: false,
         leading:
         IconButton(
             onPressed: (){
               Navigator.pushNamed(context, '/profile_screen');
             },
-            icon:Icon(Icons.arrow_back_ios,color: Colors.white,)
+            icon:Icon(Icons.arrow_back_ios,color: Color(0xFFFA076E8),)
+        ),
+        backgroundColor: Color(0xFFFEBEBEB),
+        title:  Text(
+          'Adresses',
+          style: GoogleFonts.cairo(
+              fontSize: 25.sp,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFFA076E8)
+          ),
         ),
       ),
 
-      body: Container(
-        padding: EdgeInsets.only(top: 5),
-        height: double.infinity,
-        decoration: BoxDecoration(
-          color: Color(0xFFFA076E8),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0,0),
-              color: Colors.black45,
-              blurRadius: 4,
-            )
-          ],
-        ),
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
-          children: [
-            GestureDetector(
-              onTap: () {
-                _showConfirmyBottomSheet();
-              },
-              child: Container(
-                height: 100,
-                child: Row(
+      body: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 5),
+            child: Container(
+              padding: EdgeInsets.only(top: 5),
+              margin: EdgeInsetsDirectional.only(bottom:10,start: 10,end: 10),
+              height: 600.h,
+              decoration: BoxDecoration(
+                color: Color(0xFFFA076E8),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0,0),
+                    color: Colors.black45,
+                    blurRadius: 4,
+                  )
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 40.h),
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 25.h),
                   children: [
-                    Icon(Icons.location_pin, size: 30, color: Colors.white),
-                    SizedBox(
-                      width: 10.w,
+                    GestureDetector(
+                      onTap: () {
+                        _showLanguageSheet();
+                      },
+                      child: Container(
+                        height: 100,
+                        child: Row(
+                          children: [
+                            Icon(Icons.location_pin, size: 30, color: Colors.white),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              'Your Addresses',
+                              style: GoogleFonts.cairo(
+                                  fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            ),
+                            Spacer(),
+                            Icon(Icons.arrow_forward_ios,color: Colors.white,)
+                          ],
+                        ),
+                      ),
                     ),
-                    Text(
-                      'Your Addresses',
-                      style: GoogleFonts.nunitoSans(
-                          fontSize: 16.sp, fontWeight: FontWeight.bold),
+                    SizedBox(height: 25.h,),
+                    AppTextField(
+                        hint: 'Name',
+                        prefixIcon: Icons.person,
+                        keyboardType: TextInputType.name,
+                        controller: _nameTextController),
+                    SizedBox(height: 15.h,),
+                    AppTextField(
+                        hint:
+                        'Info ',
+                        prefixIcon: Icons.info,
+                        keyboardType: TextInputType.text,
+                        controller: _mobileTextController),
+                    SizedBox(height: 15.h,),
+                    AppTextField(
+                        hint: 'Contact number',
+                        prefixIcon: Icons.phone,
+                        keyboardType: TextInputType.numberWithOptions(
+                            decimal: false, signed: false),
+                        controller: _infoTextController),
+                    SizedBox(height: 25.h,),
+                    DropdownButton<int>(
+                      hint:  Text('Select your Country',style: GoogleFonts.cairo(color: Colors.white),),
+                      style: GoogleFonts.montserrat(color: Colors.black),
+                      onTap: () {
+                      },
+                      icon: const Icon(Icons.keyboard_arrow_down),
+// itemHeight: 65,
+                      dropdownColor: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(10),
+                      elevation: 5,
+                      underline: const Divider(
+                        color: Colors.black,
+                        thickness: 1,
+                        height: 0,
+                      ),
+                      isExpanded: true,
+                      value: _selectedCountryId,
+                      onChanged: (int? value) {
+                        setState(() {
+                          _selectedCountryId = value;
+                        });
+                      },
+                      items: _country.map((country) {
+                        return DropdownMenuItem<int>(
+                          value: country.id,
+                          child: Text(country.title),
+                        );
+                      },
+                      ).toList(),
+                    ),
+                    SizedBox(height: 20.h,),
+                    ElevatedButton(
+                      onPressed: ()=>{_performOk()},
+                      child: Text(
+                        'Add Adresses',
+                        style: GoogleFonts.cairo(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 4,
+                        primary: Colors.white,
+                        minimumSize: Size(325.w, 50.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 25.h,),
-            AppTextField(
-                hint: 'Name',
-                prefixIcon: Icons.person,
-                keyboardType: TextInputType.name,
-                controller: _nameTextController),
-            SizedBox(height: 15.h,),
-            AppTextField(
-                hint:
-                'Info (brief description for the street and building name for example)',
-                prefixIcon: Icons.info,
-                keyboardType: TextInputType.text,
-                controller: _mobileTextController),
-            SizedBox(height: 15.h,),
-            AppTextField(
-                hint: 'Contact number',
-                prefixIcon: Icons.phone,
-                keyboardType: TextInputType.numberWithOptions(
-                    decimal: false, signed: false),
-                controller: _infoTextController),
-            SizedBox(height: 25.h,),
-            DropdownButton<int>(
-              hint: const Text('Select your Country'),
-              style: GoogleFonts.montserrat(color: Colors.black),
-              onTap: () {
-              },
-              icon: const Icon(Icons.keyboard_arrow_down),
-              // itemHeight: 65,
-              dropdownColor: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
-              elevation: 5,
-              underline: const Divider(
-                color: Colors.black,
-                thickness: 1,
-                height: 0,
-              ),
-              isExpanded: true,
-              value: _selectedCountryId,
-              onChanged: (int? value) {
-                setState(() {
-                  _selectedCountryId = value;
-                });
-              },
-              items: _country.map((country) {
-                return DropdownMenuItem<int>(
-                  value: country.id,
-                  child: Text(country.title),
-                );
-              },
-              ).toList(),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding:  EdgeInsetsDirectional.only(end: 25.w,bottom: 25.h),
-        child: FloatingActionButton(
-            backgroundColor: Color(0XFFFF7750),
-            child: Icon(Icons.done),
-            onPressed: (){
-              _performOk();
-            }),
+          ),
+        ],
       ),
     );
   }
 
 
-  void _showConfirmyBottomSheet() {
-    showModalBottomSheet(
+  void _showLanguageSheet() {
+    showModalBottomSheet<String>(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20.r),
-                topLeft: Radius.circular(20.r))),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15)
+          ),
+        ),
         clipBehavior: Clip.antiAlias,
-        backgroundColor: Colors.white,
         context: context,
-        builder: (context) {
-          return BottomSheet(
-              onClosing: () {
-                Navigator.pop(context);
-              },
-              builder: (context) {
-                return StatefulBuilder(
-                  builder: (context, setState) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 25.w, vertical: 25.h),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+        builder: (context){
+          return StatefulBuilder(
+              builder: (context , setState){
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 25.w, vertical: 15.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        height: 5.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(10.r)
+                        ),
+                      ),
+                      SizedBox(height: 20.h,),
+                      Text(
+                        'Addresses Entered Before',
+                        style: GoogleFonts.cairo(
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Stack(
                         children: [
-                          Text(
-                            'Addresses Entered Before',
-                            style: GoogleFonts.nunitoSans(
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Stack(
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.location_pin,
-                                      size: 30, color: Color(0xFFFA076E8)),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Text(
-                                    'Palestine - Gaza',
-                                    style: GoogleFonts.nunitoSans(
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-
-                                ],
+                              Icon(Icons.location_pin,
+                                  size: 30, color: Color(0xFFFA076E8)),
+                              SizedBox(
+                                width: 10.w,
                               ),
-                              Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40.r),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.orange.shade100
-                                        )
-                                      ]
-                                  ),
-                                  child: IconButton(onPressed: (){
-                                    Navigator.pushNamed(context, '/updated_address_screen');
-                                  }, icon: Icon(Icons.update),),
+                              Text(
+                                'Palestine - Gaza',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 16.sp,
                                 ),
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Divider(),
-                          Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.location_pin,
-                                      size: 30, color: Color(0XFFFF7750)),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Text(
-                                    'Palestine - Central Governorate',
-                                    style: GoogleFonts.nunitoSans(
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
 
-                                ],
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40.r),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.orange.shade100
-                                        )
-                                      ]
-                                  ),
-                                  child: IconButton(onPressed: (){
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacementNamed(context, '/updated_address_screen');
-                                  }, icon: Icon(Icons.update),),
-                                ),
-                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: 10.h,
-                          ),
-                          Divider(),
-                          Stack(
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(Icons.location_pin,
-                                      size: 30, color: Color(0XFFFF7750)),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Text(
-                                    'Palestine - Rafah',
-                                    style: GoogleFonts.nunitoSans(
-                                      fontSize: 16.sp,
-                                    ),
-                                  ),
-
-                                ],
+                          Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xFFFA076E8)
+                                    )
+                                  ]
                               ),
-                              Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40.r),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.orange.shade100
-                                        )
-                                      ]
-                                  ),
-                                  child: IconButton(onPressed: (){
-                                    Navigator.pop(context);
-                                    Navigator.pushNamed(context, '/updated_address_screen');
-                                  }, icon: Icon(Icons.update),),
-                                ),
-                              ),
-                            ],
+                              child: IconButton(onPressed: (){
+                                Navigator.pushNamed(context, '/update_adreese');
+                              }, icon: Icon(Icons.update),),
+                            ),
                           ),
                         ],
                       ),
-                    );
-                  },
-                );
-              });
-        });
-  }
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Divider(),
+                      Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.location_pin,
+                                  size: 30, color: Color(0xFFFA076E8)),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                'Palestine ',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 16.sp,
+                                ),
+                              ),
 
+                            ],
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xFFFA076E8)
+                                    )
+                                  ]
+                              ),
+                              child: IconButton(onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(context, '/update_adreese');
+                              }, icon: Icon(Icons.update),),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Divider(),
+                      Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.location_pin,
+                                  size: 30, color: Color(0xFFFA076E8)),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text(
+                                'Gaza',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+
+                            ],
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40.r),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Color(0xFFFA076E8)
+                                    )
+                                  ]
+                              ),
+                              child: IconButton(onPressed: (){
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/update_adreese');
+                              }, icon: Icon(Icons.update),),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                );
+              }
+          );
+        }
+    );
+
+  }
   void _performOk() {
     if (_checkData()) {
       _ok();
@@ -353,25 +385,18 @@ class _AddressScreenState extends State<AddressScreen> with helpers{
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Center(child: Icon(Icons.done,color: Color(0XFF31D1DA),size: 10.sp,))
-                  ],
-                ),
                 AlertDialog(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.r)
                   ),
-                  actions: [Image.asset('images/done.png')],
                   title: Text(
                     'Add Address Successfully!',
-                    style: GoogleFonts.nunitoSans(
-                        fontSize: 17, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.cairo(
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   content: Text(
                     'You can add more addresses',
-                    style: GoogleFonts.nunitoSans(fontSize: 14),
+                    style: GoogleFonts.cairo(fontSize: 14),
                   ),
                 ),
               ],
@@ -385,3 +410,4 @@ class _AddressScreenState extends State<AddressScreen> with helpers{
 
   }
 }
+

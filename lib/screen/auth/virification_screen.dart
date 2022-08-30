@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_store/screen/app/settings/virification_mobile_edite_screen.dart';
 import 'package:smart_store/screen/widgets/app_text_field.dart';
 import 'package:smart_store/utils/helpers.dart';
 
@@ -13,18 +14,31 @@ class VirifcationScreen extends StatefulWidget {
 
 class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
 
-  late TextEditingController _numberTextController;
+  late TextEditingController _forgetTextController;
+  late TextEditingController _verify1TextController;
+  late TextEditingController _verify2TextController;
+  late TextEditingController _verify3TextController;
+  late TextEditingController _verify4TextController;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _numberTextController = TextEditingController();
+
+    _verify1TextController = TextEditingController();
+    _verify2TextController = TextEditingController();
+    _verify3TextController = TextEditingController();
+    _verify4TextController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _numberTextController.dispose();
+    _verify1TextController.dispose();
+    _verify2TextController.dispose();
+    _verify3TextController.dispose();
+    _verify4TextController.dispose();
+    // TODO: implement dispose
     super.dispose();
   }
 
@@ -33,8 +47,14 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pushReplacementNamed(context, '/login_screen');
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         title: Text(
-            'Verification Code',
+            'Verification',
           style: GoogleFonts.cairo(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold,
@@ -61,7 +81,7 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
               Container(
                   child: Image.asset('images/logo.png')
               ),
-              SizedBox(height: 50.h,),
+              SizedBox(height: 30.h,),
               Text(
                 textAlign: TextAlign.center,
                 'A verification code will be sent to your phone.',
@@ -76,15 +96,23 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
                 padding: EdgeInsets.symmetric(horizontal: 25.w,vertical: 15.h),
                 child: Column(
                   children: [
-                    AppTextField(
-                        hint: 'Mobile',
-                        prefixIcon: Icons.phone,
-                        keyboardType: TextInputType.number,
-                        controller:_numberTextController
+                     Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        VerificationTextFeild(verify1TextController: _verify1TextController,first: true,),
+                        SizedBox(width: 7.w,),
+                        VerificationTextFeild(verify1TextController: _verify2TextController),
+                        SizedBox(width: 7.w,),
+                        VerificationTextFeild(verify1TextController: _verify3TextController),
+                        SizedBox(width: 7.w,),
+                        VerificationTextFeild(verify1TextController: _verify4TextController,last: true,),
+
+                      ],
                     ),
                     SizedBox(height: 50.h,),
                     ElevatedButton(
-                      onPressed: ()=>_PerformForget(),
+                      onPressed: ()=>_performlogin(),
                       child: Text(
                         'Continue',
                         style: GoogleFonts.cairo(
@@ -112,21 +140,114 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
       ),
     );
   }
-  void _PerformForget(){
-    if(CheckData()){
-      login();
+  void _performlogin() {
+    if (_checkVeriyData()) {
+      _login();
     }
   }
 
-  bool CheckData(){
-    if(_numberTextController.text.isNotEmpty){
-      return true ;
+  bool _checkVeriyData() {
+    if (_verify1TextController.text.isNotEmpty &&
+        _verify2TextController.text.isNotEmpty &&
+        _verify3TextController.text.isNotEmpty &&
+        _verify4TextController.text.isNotEmpty){
+      ShowSnackBar(context, message: 'Register Successfully');
+      return true;
     }
-    ShowSnackBar(context, message: 'Enter required data !',error: true);
+    ShowSnackBar(context, message:  'Enter your veriy code');
+
     return false;
+
   }
 
-  void login(){
-    Navigator.pushReplacementNamed(context, '/reset_screen');
+  _login() {
+    Navigator.pushNamed(context, '/login_screen');
+
+  }
+}
+
+class VerificationTextFeild extends StatelessWidget {
+  VerificationTextFeild({
+    this.first = false,
+    this.last = false,
+    Key? key,
+    required TextEditingController verify1TextController,
+  }) : _verify1TextController = verify1TextController, super(key: key);
+
+  final TextEditingController _verify1TextController;
+  bool first;
+  bool last ;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 50.w,
+      child: TextField(
+        onChanged: (value) {
+          if(value.isNotEmpty&&!last) {
+            FocusScope.of(context).nextFocus();
+          }else if(value.isEmpty&&!first){
+            FocusScope.of(context).previousFocus();
+          }
+        },
+        textAlign: TextAlign.center,
+        controller: _verify1TextController,
+        maxLength: 1,
+        keyboardType: const TextInputType
+            .numberWithOptions(
+            decimal: false, signed: false),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: const Color(0XFFF9F3EE),
+          helperMaxLines: 1,
+          hintStyle: GoogleFonts.nunitoSans(
+              fontSize: 16.sp),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(
+                  20.r),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+              )
+          ),
+        ),
+
+      ),
+
+    );
   }
 }
