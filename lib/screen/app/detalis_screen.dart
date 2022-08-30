@@ -57,7 +57,7 @@ class _DetalisScreenState extends State<DetalisScreen> with SingleTickerProvider
         // mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
-              'images/detalid.png',
+              'images/product.png',
             width: double.infinity,
             height: 300.h,
             fit: BoxFit.cover,

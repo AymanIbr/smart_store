@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         leading:
         IconButton(
             onPressed: (){
-              Navigator.pushNamed(context, '/home_screen');
+              Navigator.pushNamed(context, '/bottom_navigation_screen');
             },
             icon:Icon(Icons.arrow_back_ios,color: Colors.white,)
         ),
@@ -142,43 +142,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Navigator.pushNamed(context, '/adresse_screen');
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.location_history),
-                  title: Text(
-                    'New Aresses',
-                    style: GoogleFonts.cairo(),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    Navigator.pushNamed(context, '/update_adreese');
-                  },
-                ), // GridView.builder(
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     itemCount: 6,
-                //     shrinkWrap: true,
-                //     gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 2,
-                //       crossAxisSpacing: 10,
-                //       mainAxisSpacing: 10,
-                //       childAspectRatio: 150/100,
-                //     ) ,
-                //     itemBuilder: (context,index){
-                //       return Container(
-                //         padding: EdgeInsetsDirectional.only(top: 210,start: 10,end: 10),
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(10.r),
-                //           color: Colors.white,
-                //           boxShadow: [
-                //             BoxShadow(
-                //               offset: Offset(0,0),
-                //               color: Colors.black45,
-                //               blurRadius: 4,
-                //             )
-                //           ],
-                //         ),
-                //       );
-                //     }
-                // ),
               ],
             ),
           ),

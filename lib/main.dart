@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_store/screen/app/adresses/about_screen.dart';
 import 'package:smart_store/screen/app/adresses/adress_screen.dart';
-import 'package:smart_store/screen/app/adresses/new_adreese_screen.dart';
+import 'package:smart_store/screen/app/adresses/contact_screen.dart';
+import 'package:smart_store/screen/app/adresses/update_adreese_screen.dart';
 import 'package:smart_store/screen/app/all_category_screen.dart';
 import 'package:smart_store/screen/app/all_new_product_screen.dart';
+import 'package:smart_store/screen/app/caredit_card_screen.dart';
 import 'package:smart_store/screen/app/cart_screen.dart';
 import 'package:smart_store/screen/app/category_type_screen.dart';
 import 'package:smart_store/screen/app/drawer/order_detalis.dart';
 import 'package:smart_store/screen/app/drawer/order_screen.dart';
+import 'package:smart_store/screen/app/payment_screen.dart';
+import 'package:smart_store/screen/app/product_screen.dart';
 import 'package:smart_store/screen/app/profile_screen.dart';
 import 'package:smart_store/screen/app/settings/change_password_screen.dart';
 import 'package:smart_store/screen/app/content_notifi_screen.dart';
@@ -22,6 +27,7 @@ import 'package:smart_store/screen/app/fav_screen.dart';
 import 'package:smart_store/screen/app/home_screen.dart';
 import 'package:smart_store/screen/app/notifications.dart';
 import 'package:smart_store/screen/app/settings/virification_mobile_edite_screen.dart';
+import 'package:smart_store/screen/app/sub_category_screen.dart';
 import 'package:smart_store/screen/auth/forget_password.dart';
 import 'package:smart_store/screen/auth/login_screen.dart';
 import 'package:smart_store/screen/auth/register_screen.dart';
@@ -90,7 +96,14 @@ class MyApp extends StatelessWidget {
             '/order_screen':(context)=>const OrdersScreen(),
             '/order_details_screen':(context)=>const OrderDetailsScreen(),
             '/adresse_screen':(context)=>const AddressScreen(),
-            '/update_adreese':(context)=>const UpdatedAddressScreen()
+            '/update_adreese':(context)=>const UpdatedAddressScreen(),
+            '/paymen_screen':(context)=>const PaymentCardsScreen(),
+            '/sub_category_screen':(context)=>const SubCategoryScreen(),
+            '/about_screen':(context)=>const AboutScreen(),
+            '/product_screen':(context)=>const ProductsScreen(),
+            '/contact_screen':(context)=>const ContactScreen(),
+            '/credit_screen':(context)=> MySample(),
+
           },
         );
       },

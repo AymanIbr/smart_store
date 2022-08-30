@@ -16,6 +16,10 @@ class _NewProductScreenState extends State<NewProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('New Products',style: GoogleFonts.cairo(fontSize: 25.sp,color: Colors.white),),
+        leading: IconButton(
+          onPressed: (){
+          Navigator.pop(context, '/home_screen');
+        },icon: Icon(Icons.arrow_back_ios),),
         actions: [
           IconButton(
               onPressed: (){},
@@ -44,26 +48,31 @@ class _NewProductScreenState extends State<NewProductScreen> {
                 itemCount: 10,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context,index){
-                  return Container(
-                    padding: EdgeInsets.only(top: 5),
-                    margin: EdgeInsetsDirectional.only(bottom:10,start: 10,end: 10),
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0,0),
-                          color: Colors.black45,
-                          blurRadius: 4,
-                        )
-                      ],
-                    ),
-                    child: ListTile(
-                      leading: Image.asset('images/product.png',width: 100.w,height: double.infinity,fit: BoxFit.cover,),
-                      title: Text('Unisex Henry LondonHeritage',style: GoogleFonts.cairo(),),
-                      subtitle: Text('\$495.00',style: GoogleFonts.cairo(color: Color(0xFF9C68F5)),),
-                      trailing: Icon(Icons.favorite_border),
+                  return InkWell(
+                    onTap: (){
+                      Navigator.pushNamed(context, '/detalis_screen');
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 5),
+                      margin: EdgeInsetsDirectional.only(bottom:10,start: 10,end: 10),
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0,0),
+                            color: Colors.black45,
+                            blurRadius: 4,
+                          )
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: Image.asset('images/product.png',width: 100.w,height: double.infinity,fit: BoxFit.cover,),
+                        title: Text('Unisex Henry LondonHeritage',style: GoogleFonts.cairo(),),
+                        subtitle: Text('\$495.00',style: GoogleFonts.cairo(color: Color(0xFF9C68F5)),),
+                        trailing: Icon(Icons.favorite_border),
+                      ),
                     ),
                   );
                 }

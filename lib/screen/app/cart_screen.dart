@@ -40,119 +40,151 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
 
-    body :  Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              color: Color(0xFFFA076E8),
-            ),
-            Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context,index){
-                        return Container(
-                          height: 115,
-                          // alignment: Alignment.center,
-                          margin: EdgeInsets.symmetric(
-                              horizontal: 15.w,
-                              vertical: 10.h
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context,index){
+                  return Container(
+                    height: 115,
+// alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(
+                        horizontal: 15.w,
+                        vertical: 10.h
+                    ),
+                    padding: EdgeInsetsDirectional.only(
+                      end: 5.w,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0,0),
+                          color: Colors.black45,
+                          blurRadius: 4,
+                        )
+                      ],
+                    ),
+                    child: Stack(
+                      children: [
+                        PositionedDirectional(
+                          end: 0,
+                          top: 0,
+                          child: IconButton(
+                            onPressed: (){
+                            },
+                            icon: Icon(Icons.close),
+                            color: Colors.red,
+                            visualDensity: VisualDensity(
+                                vertical: VisualDensity.minimumDensity,
+                                horizontal: VisualDensity.minimumDensity
+                            ),
                           ),
-                          padding: EdgeInsetsDirectional.only(
-                            end: 5.w,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                offset: Offset(0,0),
-                                color: Colors.black45,
-                                blurRadius: 4,
-                              )
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              PositionedDirectional(
-                                end: 0,
-                                top: 0,
-                                child: IconButton(
-                                  onPressed: (){
-                                  },
-                                  icon: Icon(Icons.close),
-                                  color: Colors.red,
-                                  visualDensity: VisualDensity(
-                                      vertical: VisualDensity.minimumDensity,
-                                      horizontal: VisualDensity.minimumDensity
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    'images/fa.png',
-                                    fit: BoxFit.fill,
-                                    height: 116.h,
+                        ),
+                        Row(
+                          children: [
+                            Image.asset(
+                              'images/fa.png',
+                              fit: BoxFit.fill,
+                              height: 116.h,
 
+                            ),
+                            SizedBox(width: 10.w,),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    child: Text(
+                                      'Zippered Backpack With Metal Lock',style: GoogleFonts.cairo(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12.sp
+                                    ),),
+                                    width: 115.w,
+                                    height: 70.h,
                                   ),
-                                  SizedBox(width: 10.w,),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          child: Text(
-                                            'Zippered Backpack With Metal Lock',style: GoogleFonts.cairo(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12.sp
-                                          ),),
-                                          width: 115.w,
-                                          height: 70.h,
-                                        ),
-                                        Text(
-                                          '\$59.98',
-                                          style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.w300,
-                                            height: 1.0,
-                                            fontSize: 12.sp,
-                                            color: Color(0xFFFA076E8),
-                                          ),
-                                        ),
-                                      ],
+                                  Text(
+                                    '\$59.98',
+                                    style: GoogleFonts.cairo(
+                                      fontWeight: FontWeight.w300,
+                                      height: 1.0,
+                                      fontSize: 12.sp,
+                                      color: Color(0xFFFA076E8),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: (){
-                                        },
-                                        iconSize: 20.sp,
-                                        icon: Icon(Icons.add),
-                                      ),
-                                      IconButton(
-                                        onPressed: (){
-                                        },
-                                        iconSize: 20.sp,
-                                        icon: Icon(Icons.remove),
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        );
-                      }
-                  ),
-                ),
-              ],
+                            ),
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: (){
+                                  },
+                                  iconSize: 20.sp,
+                                  icon: Icon(Icons.add),
+                                ),
+                                IconButton(
+                                  onPressed: (){
+                                  },
+                                  iconSize: 20.sp,
+                                  icon: Icon(Icons.remove),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
             ),
-          ],
-        )
+          ),
+          Divider(
+            height: 2,
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Spacer(),
+              Text(
+                'Total',
+                style: GoogleFonts.cairo(
+                    fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+              Spacer(
+                flex: 6,
+              ),
+              Text(
+                '\$200',
+                style: GoogleFonts.cairo(
+                    fontSize: 15.sp, fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+            ],
+          ),
+          SizedBox(height: 10),
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                primary: const Color(0xFFFA076E8),
+                minimumSize: Size(double.infinity, 45),
+                elevation: 0,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/paymen_screen');
+              },
+              child:  Text('Pay Now',style: GoogleFonts.cairo(fontSize: 18.sp),),
+            ),
+          ),
+          SizedBox(height: 15),
+        ],
+      ),
     );
 
   }

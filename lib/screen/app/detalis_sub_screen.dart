@@ -57,7 +57,7 @@ class _DetalisSubScreenState extends State<DetalisSubScreen> with SingleTickerPr
         // mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
-            'images/category.png',
+            'images/category1.png',
             width: double.infinity,
             height: 300.h,
             fit: BoxFit.cover,

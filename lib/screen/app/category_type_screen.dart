@@ -60,7 +60,7 @@ class _CategoryTypeScreenState extends State<CategoryTypeScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children:  [
                           Image.asset(
-                            'images/category.png',
+                            'images/category1.png',
                             height: 102.h,
                             width: 156.w,
                             fit: BoxFit.fitWidth,

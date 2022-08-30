@@ -141,7 +141,7 @@ class _PaymentCardsScreenState extends State<PaymentCardsScreen> {
             backgroundColor: Color(0xFFFA076E8),
             child: Icon(Icons.add),
             onPressed: (){
-
+              Navigator.pushNamed(context, '/credit_screen');
             }),
       ),
     );

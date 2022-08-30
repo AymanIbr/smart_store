@@ -32,56 +32,61 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
       ),
       body: Stack(
         children: [
-          GridView.builder(
-              itemCount: 10,
-              padding: const EdgeInsets.all(10),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/product_screen');
-                  },
-                  child: Card(
-                    clipBehavior: Clip.antiAlias,
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'images/category1.png',
-                          width: double.infinity,
-                          height: 110.h,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: SizedBox(
-                            width: 120.w,
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.only(start: 16),
-                              child: Text(
-                                'Women Apparel Accessories',
-                                style: GoogleFonts.cairo(
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.bold),
+          InkWell(
+            onTap: (){
+              Navigator.pushNamed(context, '/product_screen');
+            },
+            child: GridView.builder(
+                itemCount: 10,
+                padding: const EdgeInsets.all(10),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/product_screen');
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            'images/category1.png',
+                            width: double.infinity,
+                            height: 110.h,
+                            fit: BoxFit.cover,
+                          ),
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 120.w,
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.only(start: 16),
+                                child: Text(
+                                  'Women Apparel Accessories',
+                                  style: GoogleFonts.cairo(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+          ),
         ],
       ),
     );

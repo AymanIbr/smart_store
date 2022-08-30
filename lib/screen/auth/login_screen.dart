@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> with helpers {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           'Sign In',
           style: GoogleFonts.cairo(
