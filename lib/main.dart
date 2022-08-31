@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_store/screen/app/adresses/about_screen.dart';
 import 'package:smart_store/screen/app/adresses/adress_screen.dart';
+<<<<<<< HEAD
 import 'package:smart_store/screen/app/adresses/contact_screen.dart';
+=======
+>>>>>>> github/master
 import 'package:smart_store/screen/app/adresses/update_adreese_screen.dart';
 import 'package:smart_store/screen/app/all_category_screen.dart';
 import 'package:smart_store/screen/app/all_new_product_screen.dart';
@@ -13,7 +16,10 @@ import 'package:smart_store/screen/app/category_type_screen.dart';
 import 'package:smart_store/screen/app/drawer/order_detalis.dart';
 import 'package:smart_store/screen/app/drawer/order_screen.dart';
 import 'package:smart_store/screen/app/payment_screen.dart';
+<<<<<<< HEAD
 import 'package:smart_store/screen/app/product_screen.dart';
+=======
+>>>>>>> github/master
 import 'package:smart_store/screen/app/profile_screen.dart';
 import 'package:smart_store/screen/app/settings/change_password_screen.dart';
 import 'package:smart_store/screen/app/content_notifi_screen.dart';
@@ -98,12 +104,16 @@ class MyApp extends StatelessWidget {
             '/adresse_screen':(context)=>const AddressScreen(),
             '/update_adreese':(context)=>const UpdatedAddressScreen(),
             '/paymen_screen':(context)=>const PaymentCardsScreen(),
+<<<<<<< HEAD
             '/sub_category_screen':(context)=>const SubCategoryScreen(),
             '/about_screen':(context)=>const AboutScreen(),
             '/product_screen':(context)=>const ProductsScreen(),
             '/contact_screen':(context)=>const ContactScreen(),
             '/credit_screen':(context)=> MySample(),
 
+=======
+            '/sub_category_screen':(context)=>const SubCategoryScreen()
+>>>>>>> github/master
           },
         );
       },

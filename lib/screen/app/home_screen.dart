@@ -162,7 +162,11 @@ class _HomeScreenState extends State<HomeScreen> {
                onTap: (){
                  Navigator.pop(context);
                  Future.delayed(Duration(microseconds: 500 ), (){
+<<<<<<< HEAD
                    Navigator.pushNamed(context , '/about_screen');
+=======
+                   Navigator.pushNamed(context , '/order_screen');
+>>>>>>> github/master
                  });
                },
              ),
@@ -173,7 +177,11 @@ class _HomeScreenState extends State<HomeScreen> {
                onTap: (){
                  Navigator.pop(context);
                  Future.delayed(Duration(microseconds: 500 ), (){
+<<<<<<< HEAD
                    Navigator.pushNamed(context , '/contact_screen');
+=======
+                   Navigator.pushNamed(context , '/order_screen');
+>>>>>>> github/master
                  });
                },
              ),
