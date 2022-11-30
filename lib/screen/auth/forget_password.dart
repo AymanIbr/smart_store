@@ -143,6 +143,5 @@ class _ForgetPasswordState extends State<ForgetPassword> with helpers {
   }
 
   void login(){
-    Navigator.pushReplacementNamed(context, '/virify_screen');
   }
 }

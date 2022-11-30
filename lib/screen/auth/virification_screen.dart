@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_store/api/auth_api_controller.dart';
+import 'package:smart_store/api/models/api_response.dart';
+import 'package:smart_store/helpers/context_extintion.dart';
 import 'package:smart_store/screen/app/settings/virification_mobile_edite_screen.dart';
 import 'package:smart_store/screen/widgets/app_text_field.dart';
 import 'package:smart_store/utils/helpers.dart';
 
 class VirifcationScreen extends StatefulWidget {
-  const VirifcationScreen({Key? key}) : super(key: key);
+   VirifcationScreen({Key? key,required this.code,required this.mobile}) : super(key: key);
 
   @override
   State<VirifcationScreen> createState() => _VirifcationScreenState();
+final String mobile ;
+final int code ;
 }
 
 class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
+  late TextEditingController _mobileTextController;
 
-  late TextEditingController _forgetTextController;
-  late TextEditingController _verify1TextController;
-  late TextEditingController _verify2TextController;
-  late TextEditingController _verify3TextController;
-  late TextEditingController _verify4TextController;
 
 
   @override
@@ -26,18 +27,12 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
     // TODO: implement initState
     super.initState();
 
-    _verify1TextController = TextEditingController();
-    _verify2TextController = TextEditingController();
-    _verify3TextController = TextEditingController();
-    _verify4TextController = TextEditingController();
+    _mobileTextController = TextEditingController()..text = widget.code.toString();
   }
 
   @override
   void dispose() {
-    _verify1TextController.dispose();
-    _verify2TextController.dispose();
-    _verify3TextController.dispose();
-    _verify4TextController.dispose();
+  _mobileTextController.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -48,18 +43,17 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pushReplacementNamed(context, '/login_screen');
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
-            'Verification',
+          'Verification',
           style: GoogleFonts.cairo(
               fontSize: 20.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.white
-          ),
+              color: Colors.white),
         ),
       ),
       body: Stack(
@@ -91,163 +85,66 @@ class _VirifcationScreenState extends State<VirifcationScreen> with helpers {
                   fontSize: 20.sp,
                 ),
               ),
-              SizedBox(height: 20.h,),
+               SizedBox(height: 50.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.w,vertical: 15.h),
-                child: Column(
-                  children: [
-                     Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        VerificationTextFeild(verify1TextController: _verify1TextController,first: true,),
-                        SizedBox(width: 7.w,),
-                        VerificationTextFeild(verify1TextController: _verify2TextController),
-                        SizedBox(width: 7.w,),
-                        VerificationTextFeild(verify1TextController: _verify3TextController),
-                        SizedBox(width: 7.w,),
-                        VerificationTextFeild(verify1TextController: _verify4TextController,last: true,),
-
-                      ],
-                    ),
-                    SizedBox(height: 50.h,),
-                    ElevatedButton(
-                      onPressed: ()=>_performlogin(),
-                      child: Text(
-                        'Continue',
-                        style: GoogleFonts.cairo(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 4,
-                        primary: Colors.white,
-                        minimumSize: Size(325.w, 50.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                      ),
-                    ),
-
-                  ],
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: AppTextField(
+                    hint: 'Enter Code',
+                    prefixIcon: (Icons.phone_android_rounded),
+                    keyboardType: TextInputType.number,
+                    controller: _mobileTextController,
+                  )),
+              const SizedBox(height: 25),
+              SizedBox(height: 50.h,),
+              ElevatedButton(
+                onPressed: ()=>performaLogin(),
+                child: Text(
+                  'Continue',
+                  style: GoogleFonts.cairo(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  elevation: 4,
+                  primary: Colors.white,
+                  minimumSize: Size(325.w, 50.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
                 ),
               ),
             ],
           ),
         ],
       ),
-    );
+  );
   }
-  void _performlogin() {
-    if (_checkVeriyData()) {
-      _login();
+  void performaLogin() {
+    if (checkData()) {
+      activate();
     }
   }
 
-  bool _checkVeriyData() {
-    if (_verify1TextController.text.isNotEmpty &&
-        _verify2TextController.text.isNotEmpty &&
-        _verify3TextController.text.isNotEmpty &&
-        _verify4TextController.text.isNotEmpty){
-      ShowSnackBar(context, message: 'Register Successfully');
+  bool checkData() {
+    if (_mobileTextController.text.isNotEmpty) {
       return true;
     }
-    ShowSnackBar(context, message:  'Enter your veriy code');
+    ShowSnackBar(context,
+        message: 'Enter required data' , error: true);
 
     return false;
-
   }
 
-  _login() {
-    Navigator.pushNamed(context, '/login_screen');
-
-  }
-}
-
-class VerificationTextFeild extends StatelessWidget {
-  VerificationTextFeild({
-    this.first = false,
-    this.last = false,
-    Key? key,
-    required TextEditingController verify1TextController,
-  }) : _verify1TextController = verify1TextController, super(key: key);
-
-  final TextEditingController _verify1TextController;
-  bool first;
-  bool last ;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 50.w,
-      child: TextField(
-        onChanged: (value) {
-          if(value.isNotEmpty&&!last) {
-            FocusScope.of(context).nextFocus();
-          }else if(value.isEmpty&&!first){
-            FocusScope.of(context).previousFocus();
-          }
-        },
-        textAlign: TextAlign.center,
-        controller: _verify1TextController,
-        maxLength: 1,
-        keyboardType: const TextInputType
-            .numberWithOptions(
-            decimal: false, signed: false),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: const Color(0XFFF9F3EE),
-          helperMaxLines: 1,
-          hintStyle: GoogleFonts.nunitoSans(
-              fontSize: 16.sp),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-          disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-          errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(
-                  20.r),
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-              )
-          ),
-        ),
-
-      ),
-
-    );
+  Future<void> activate() async {
+    ApiResponse apiResponse =
+    await AuthAPiController().activate(widget.mobile, widget.code);
+    if (apiResponse.success) {
+      Navigator.pushReplacementNamed(context, '/login_screen');
+    }
+    // ignore: use_build_context_synchronously
+    context.showSnackBar(
+        message: apiResponse.message, error: !apiResponse.success);
   }
 }
