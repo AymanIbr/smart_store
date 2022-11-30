@@ -32,6 +32,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       ),
       body: ListView.builder(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 25.h),
+        itemCount: 10,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {

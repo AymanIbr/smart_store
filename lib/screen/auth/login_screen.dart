@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_store/api/auth_api_controller.dart';
+import 'package:smart_store/api/models/api_response.dart';
+import 'package:smart_store/helpers/context_extintion.dart';
 import 'package:smart_store/screen/widgets/app_text_field.dart';
 import 'package:smart_store/utils/helpers.dart';
 
@@ -169,11 +172,18 @@ class _LoginScreenState extends State<LoginScreen> with helpers {
     if(_mobileTextController.text.isNotEmpty && _passwordTextController.text.isNotEmpty){
       return true ;
     }
-  ShowSnackBar(context, message: 'Enter required data !',error: true);
+ context.showSnackBar(message: 'Enter required data !',error: true);
     return false;
   }
 
-  void login(){
+  void login() async {
+    ApiResponse apiResponse = await AuthAPiController().login(
+        mobile: _mobileTextController.text,
+        password: _passwordTextController.text
+    );
+    if(apiResponse.success){
       Navigator.pushReplacementNamed(context, '/bottom_navigation_screen');
+    }
+    context.showSnackBar(message: apiResponse.message,error: !apiResponse.success);
   }
 }

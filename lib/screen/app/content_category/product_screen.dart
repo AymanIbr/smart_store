@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({Key? key}) : super(key: key);
+  const ProductsScreen({required this.id,Key? key}) : super(key: key);
+  final int id ;
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -14,12 +15,13 @@ bool _likeproduct = true;
 class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
+    print("id ${widget.id}");
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/sub_category_screen');
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios,
